@@ -110,3 +110,74 @@ rails generate scaffold Article title:string content:string --no-assets
 # 运行数据库迁移
 rails db:migrate
 ```
+
+### 解析 Controller
+
+```rb
+# 创建一个类, 继承 ApplicationController
+class ArticlesController < ApplicationController
+
+  # 回调名称, 调用方法, 哪些方法生效
+  before_action :set_article, only: %i[ show update destroy ]
+
+  # GET /articles
+  def index
+    # @实例变量  @@类变量
+    @articles = Article.all
+    # 将 @articles 渲染为 json
+    render json: @articles
+  end
+
+  # GET /articles/1
+  def show
+    # 这里的 @article 其实是通过前面的回调来初始化的
+    render json: @article
+  end
+
+  # POST /articles
+  def create
+    @article = Article.new(article_params)
+
+    # 保存
+    if @article.save
+      # 渲染@article 为 json, http状态为created, 值为 201
+      # 200 也没关系, 但返回 201 更符合 http规范
+      render json: @article, status: :created, location: @article
+    else
+    # http 422 
+      render json: @article.errors, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /articles/1
+  def update
+    if @article.update(article_params)
+      render json: @article
+    else
+      render json: @article.errors, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /articles/1
+  def destroy
+    @article.destroy
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_article
+      @article = Article.find(params[:id])
+    end
+
+    # 从请求中选择需要的参数, 好处是只从请求中选择需要的参数, 不会被黑客利用
+
+    # 例如用户有一个字段是余额, 如果所有请求的数据用来创建/更新用户
+    # 这里有一个漏洞, 黑客可以传递任何值, 更改该字段
+
+    # Only allow a list of trusted parameters through.
+    def article_params
+      params.require(:article).permit(:title, :content)
+    end
+end
+
+```
