@@ -79,3 +79,34 @@ rails new 项目名称 --api
 ### 源码纳入版本控制
 
 使用 git
+
+### 启动 rails 项目
+
+```zsh
+rails server 启动服务器
+rails s 简写
+rails s -p 5000 指定端口
+```
+
+### Hello World
+
+api 项目,  返回一个json,
+
+1. 创建控制器
+控制器, 路由器, 模型, 界面等数据可以手动创建, 也可以命令行创建, api 应用可以不要视图
+
+2. 脚手架
+脚手架可以同时创建控制器, 模型, 视图等信息, 但有时候我们不需要这些文件, 后续了解单独创建命令
+```zsh
+# generate 表示生成, 简写为 g
+# scaffold 脚手架
+# Article 模型名称, Rails 严格区分单数负数, 这里使用单数
+# title:string 模型名称:类型 rails 的类型, 不是数据库的类型
+# --no-assets 表示不生产 js html等类型文件
+
+# 创建数据库迁移文件
+rails generate scaffold Article title:string content:string --no-assets
+
+# 运行数据库迁移
+rails db:migrate
+```
