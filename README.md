@@ -1,17 +1,24 @@
-学习至 章节9 快速入门 rails
+# README
 
-## Ruby
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
+Things you may want to cover:
 
+* Ruby version
 
-### Ruby 之 Hello World
-```ruby
-puts 'Hello World'
-print 'Hello World'
-```
+* System dependencies
 
-### RVM
-是一个命令行工具, 管理多版本 Ruby环境和切换
-```ruby
-rvm list known # 查看已知 ruby 版本
-```
+* Configuration
+
+* Database creation
+
+* Database initialization
+
+* How to run the test suite
+
+* Services (job queues, cache servers, search engines, etc.)
+
+* Deployment instructions
+
+* ...
