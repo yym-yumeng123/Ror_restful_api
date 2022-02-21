@@ -55,6 +55,45 @@ Gemfile.lock 相当于锁定了版本, 更改了Gemfile 版本, 需要再次安�
 
 
 
+### 如何引用 Git 依赖
+
+有时候引用的 Gem 可以不在官方仓库中, 而只有源码, 如果是 git, 引用很方便
+
+1. 引用单个Git 仓库
+```rb
+gem 'rake', git: 'https://github.com/rack/rack'
+```
+
+2. 指定版本
+```rb
+gem 'nokogiri', '1.7.0.1', git: 'https://github.com/xx/xx'
+```
+
+3. 多个仓库
+如果多个gem来自同一个 Git, 那么每次指定完整地址比较麻烦,后面修改也不方便, 可以定义一个源
+```rb
+git_source(:github) { |repo| "https://github.com/#{repo}.com" }
+
+# 用名称引用
+gem 'rack', github: 'rack/rack'
+gem 'nokogiri', '1.7.0.1', github: 'xxx/xx'
+```
+
+4. 使用不同的协议
+```rb
+gem 'rake', git: 'https://github.com/rack/rack'
+gem 'rake', git: 'git@github.com:rack/rack.git'
+# ...
+```
+
+
+
+
+
+
+
+
+
 
 
 
