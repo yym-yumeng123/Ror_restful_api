@@ -115,7 +115,30 @@ MVC 中的 C (控制器), 翻译动作控制器, 简单说: 客户端请求一�
 
 
 
+> --------------
 
+### 如何去除默认主页
+
+```rb
+rails s  # 会有一个默认主页
+rails s -e production  # 打开生产环境的主页
+
+# 配置默认路由
+root to: "home#index"
+
+# 生成一个控制器
+rails g controller Homes
+# 销毁刚才创建的控制器
+rails d controller Homes
+
+# 编辑 homes_conteoller.rb
+def index
+  # 返回json
+  render json: { code: 404 }
+  # 跳转网址
+  redirect_to 'http://...'
+end
+```
 
 
 
