@@ -54,3 +54,16 @@ rvm list known # 查看已知 ruby 版本
    - 歌单搜索
    - 用户搜索
    - 搜索建议
+
+### 创建项目
+
+1. 创建 docker 数据库
+```
+docker run -v ror_music:/var/lib/postgresql/data -p 5555:5432 -e POSTGRES_USER=
+root -e POSTGRES_PASSWORD=123456 -d postgres:12.2
+```
+
+2. 创建 rails api 项目
+```
+rails new ror_music  --database=postgresql --api
+```
