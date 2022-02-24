@@ -67,3 +67,8 @@ root -e POSTGRES_PASSWORD=123456 -d postgres:12.2
 ```
 rails new ror_music  --database=postgresql --api
 ```
+
+3. 用户相关数据
+```bash
+rails generate scaffold User nickname:string avatar:string description:string gender:integer birthday:date email:string phone:string password_digest:string session_digest:string reset_password_digest:string reset_password_sent_at:datetime confirmation_digest:string confirmed_at:datetime confirmation_sent_at:datetime qq_id:string qq_id_digest:string wechat_id:string wechat_id_digest:string --no-assets
+```
