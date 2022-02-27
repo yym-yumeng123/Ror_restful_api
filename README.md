@@ -76,3 +76,10 @@ rails generate scaffold User nickname:string avatar:string description:string ge
 # 执行迁移
 rails db:migrate RAILS_ENV=development
 ```
+
+4. 查看错误信息
+```
+user.errors.messages
+user.errors[:nickname]
+user.valid?
+```
