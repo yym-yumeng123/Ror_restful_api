@@ -7,6 +7,12 @@ class User < ApplicationRecord
   # 导入系统系统的验证器
   include ActiveModel::Validations
   validates_with PhoneValidator
+  # 使用自定义右键验证器
+  # 后面的email，是通过验证器命令Email识别的
+  # 这就是Rails的约定优于配置的体现
+# 可以使用自带的验证
+  # validates :email, presence: true, email: true
+  validates :email, email: true
 
   # 默认查询参数
   # 默认按创建时间倒序排列
