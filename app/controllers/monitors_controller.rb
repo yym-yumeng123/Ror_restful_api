@@ -1,7 +1,7 @@
 class MonitorsController < ApplicationController
   def version
     version = {
-      "name" =>ENV['VERSION_NAME'],
+      "name" => ENV['VERSION_NAME'],
       "code" => ENV['VERSION_CODE']
     }
 

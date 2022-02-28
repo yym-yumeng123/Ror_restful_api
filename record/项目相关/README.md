@@ -24,3 +24,11 @@ rails generate controller Monitors version
 **使用第三方框架**
 
 使用`dotenv-rails`。他将所有的环境变量放到根目录的.env文件，如果本地有环境变量，就用设置的环境变量，没有就用该文件的
+
+### linux 小知识
+```zsh
+# 要在同Shell下启动
+export DATABASE_USERNAME=yym
+echo $DATABASE_USERNAME # 查看
+unset DATABASE_USERNAME # 删除
+```

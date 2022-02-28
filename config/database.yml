@@ -17,8 +17,8 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  username: root
-  password: 123456
+  username: <%= ENV.fetch("DATABASE_USERNAME") %> # .env 配置
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %> # .env 配置
   host: localhost
   port: 5555
   # For details on connection pooling, see Rails configuration guide
