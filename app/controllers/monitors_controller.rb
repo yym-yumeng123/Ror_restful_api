@@ -1,8 +1,8 @@
 class MonitorsController < ApplicationController
   def version
     version = {
-      code: 100,
-      name: '1.0.0'
+      "name" =>ENV['VERSION_NAME'],
+      "code" => ENV['VERSION_CODE']
     }
 
     render json: version
