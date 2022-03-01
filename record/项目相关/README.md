@@ -32,3 +32,37 @@ export DATABASE_USERNAME=yym
 echo $DATABASE_USERNAME # 查看
 unset DATABASE_USERNAME # 删除
 ```
+
+### 添加项目API版本
+
+**如何区分版本**
+1. 在Header中指定使用的版本
+2. 在参数中指定
+3. 通过URL地址, 使用这个
+```rb
+# 通过Ruby 命名空间来实现, v1, v2 就是不同的命名空间
+第一版接口：/v1/users
+第二版本：/v2/users
+```
+```rb
+# 创建v1版本控制器
+rails g controller v1::Users
+
+# app/controllers/v1/users_controller.rb
+class V1::UsersController < ApplicationController
+end
+
+
+# 配置路由
+Rails.application.routes.draw do
+  # Defines the root path route ("/")
+  # root "articles#index"
+
+  # v1接口命名空间
+  namespace :v1 do
+    # 用户路由；相当于配置了所有方式
+    resources :users
+  end
+
+end
+```
