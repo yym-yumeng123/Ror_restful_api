@@ -46,6 +46,8 @@ class V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:nickname, :avatar, :description, :gender, :birthday, :email, :phone, :password_digest, :session_digest, :reset_password_digest, :reset_password_sent_at, :confirmation_digest, :confirmed_at, :confirmation_sent_at, :qq_id, :qq_id_digest, :wechat_id, :wechat_id_digest)
+      # params.require(:user)
+      # params.require(:data)
+      params.permit(:nickname, :avatar, :description, :gender, :birthday, :email, :phone, :password_digest, :session_digest, :reset_password_digest, :reset_password_sent_at, :confirmation_digest, :confirmed_at, :confirmation_sent_at, :qq_id, :qq_id_digest, :wechat_id, :wechat_id_digest)
     end
 end
