@@ -7,6 +7,9 @@ class ApplicationController < ActionController::API
   rescue_from Exception, with: :all_exception
 
   def all_exception error
+    logger.error {
+      "Application error:#{error}"
+    }
     raise error
   end
   
