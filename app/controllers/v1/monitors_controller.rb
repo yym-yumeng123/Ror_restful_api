@@ -1,4 +1,4 @@
-class MonitorsController < ApplicationController
+class V1::MonitorsController < ApplicationController
   def version
     version = {
       "name" => ENV['VERSION_NAME'],
