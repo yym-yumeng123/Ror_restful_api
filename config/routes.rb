@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     resources :users
   end
 
+  namespace :v2 do
+    get 'monitors/version'
+  end
+
   # 钉钉通知路由
   post 'notices/notices'
 end
