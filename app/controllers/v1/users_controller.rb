@@ -19,7 +19,7 @@ class V1::UsersController < ApplicationController
     if @user.save
       render_save_success @user
     else
-      render_error 20, '参数错误, 请稍后再试!'
+      render_detail_error 20, '参数错误, 请稍后再试!', @user.errors
     end
   end
 
