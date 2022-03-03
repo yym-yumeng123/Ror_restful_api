@@ -66,3 +66,44 @@ Rails.application.routes.draw do
 
 end
 ```
+
+### 默认错误处理
+
+1. 请求成功: 返回 200, 或者201, 返回对象
+
+2. 对象验证不通过: 手机号，邮箱格式都是不正确的，肯定不能保存到数据库，他返回422
+```json
+{
+    "nickname": [
+        "can't be blank"
+    ]
+}
+```
+
+3. 数据库验证不通过: 例如：手机号重复。返回500
+
+```json
+{
+  // 是服务器返回的错误码
+  "status": 500,
+  // 对这个错误的一个简单描述
+  "error": "Internal Server Error",
+  // 就是错误详细信息
+  "exception": "#<NoMethodError: undefined method `user_url' for #<V1::UsersController:0x00007f0104666a00>>",
+  // 错误方法调用堆栈
+  "traces": {
+    "Application Trace": [
+      {
+        "id": 19,
+        "trace": "app/controllers/v1/users_controller.rb:22:in `create'"
+      }
+    ],
+    "Framework Trace": [
+      {
+        "id": 0,
+        "trace": "actionpack (5.2.2) lib/action_dispatch/routing/polymorphic_routes.rb:281:in `handle_model_call'"
+      }
+    ]
+  }
+}
+```
