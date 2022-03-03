@@ -27,9 +27,8 @@ class ApplicationController < ActionController::API
     render_error 20, "参数错误, 请稍后再试!"
   end
   
-  # 返回详细错误
-  def render_detail_error code, message, detail
-    render json: {status: code, message: message, detail: detail }
+  def render_detail_error detail
+    render json: {status: ERROR_ARGUMENT, message: ERROR_ARGUMENT_MESSAGE, detail: detail}
   end
   
 end

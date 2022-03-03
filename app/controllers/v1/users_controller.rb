@@ -16,10 +16,24 @@ class V1::UsersController < ApplicationController
   # POST /users
   def create
     @user = User.new(user_params)
+    # 可以不用手动校验, 模型数据库都设置了校验, 校验不通过, 是不能保存成功的
+
+    # 参数校验
+    if @user.phone.blank? or @user.email.blank? or @user.password.blank?
+      render_error(ERROR_EMPTY_EMAIL_OR_PASSWORD, ERROR_EMPTY_EMAIL_OR_PASSWORD_MESSAGE)
+      return
+    end
+    
+    # 判断用户是否存在
+    if User.exists?(phone: @user.phone) or User.exists?(email: @user.email)
+      render_error(ERROR_USER_EXIST, ERROR_USER_EXIST_MESSAGE)
+      return
+    end
+
     if @user.save
       render_save_success @user
     else
-      render_detail_error 20, '参数错误, 请稍后再试!', @user.errors
+      render_detail_error @user.errors
     end
   end
 
@@ -48,6 +62,6 @@ class V1::UsersController < ApplicationController
     def user_params
       # params.require(:user)
       # params.require(:data)
-      params.permit(:nickname, :avatar, :description, :gender, :birthday, :email, :phone, :password_digest, :session_digest, :reset_password_digest, :reset_password_sent_at, :confirmation_digest, :confirmed_at, :confirmation_sent_at, :qq_id, :qq_id_digest, :wechat_id, :wechat_id_digest)
+      params.permit(:nickname, :avatar, :description, :gender, :birthday, :email, :phone, :password)
     end
 end

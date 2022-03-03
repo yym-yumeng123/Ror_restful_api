@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  # 添加一个密码属性 只是用来保存用户传递进来的密码, 不会存储到数据库
+  attr_accessor :password
 
   # 验证(约束)
   validates :nickname, presence: true, length: {minimum: 1, maximum:150}
