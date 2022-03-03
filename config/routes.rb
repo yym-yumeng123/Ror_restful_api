@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   namespace :v1 do
     # 查看版本路由
     get 'monitors/version'
-    resources :users
+    resources :users, except: [:destroy]
   end
 
   namespace :v2 do
