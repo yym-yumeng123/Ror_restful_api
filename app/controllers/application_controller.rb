@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::API
+  before_action :destroy_session
+
+  # 不使用session
+  def destroy_session
+    request.session_options[:skip] = true
+  end
   # 全局错误处理
   # 当然也可以只捕获一类异常
   # 他不能捕捉ActionController::RoutingError异常
@@ -29,6 +35,14 @@ class ApplicationController < ActionController::API
   
   def render_detail_error detail
     render json: {status: ERROR_ARGUMENT, message: ERROR_ARGUMENT_MESSAGE, detail: detail}
+  end
+
+  def render_json object
+    render_json_and_code(object, :ok)
+  end
+  
+  def render_json_and_code object, code
+    render json: {data: object}, status: code
   end
   
 end

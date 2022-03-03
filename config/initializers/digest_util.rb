@@ -10,4 +10,9 @@ module DigestUtil
     # 加密
     return BCrypt::Password.create(data, cost: cost)
   end
+
+  # 生成32位 base64编码
+  def self.random_base64_32
+    return SecureRandom.urlsafe_base64(32)
+  end
 end

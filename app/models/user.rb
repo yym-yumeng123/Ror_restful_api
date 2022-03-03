@@ -34,4 +34,14 @@ class User < ApplicationRecord
       self.password_digest = DigestUtil.encrypt(unencrypted_password)
     end
   end
+
+  def authenticated? attribute, value
+    digest = self.send("#{attribute}_digest")
+
+    return false if digest.nil?
+
+    # 使用传递进来的密码和加密的密码比较
+    BCrypt::Password.new(digest).is_password?(value)
+  end
+  
 end
