@@ -23,7 +23,7 @@ class V1::SessionsController < ApplicationController
 
     # 用户存在
     if user
-      # 用户存在, 还要判断认证是否存在
+      # 用户存在, 还要判断认证是否存在  authenticated? user.rb中定义
       if user.authenticated? attribute, digest
         # 随机字符串，加密1次
         session = DigestUtil.encrypt(DigestUtil.random_base64_32)

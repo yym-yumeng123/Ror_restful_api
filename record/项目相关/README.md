@@ -107,3 +107,14 @@ end
   }
 }
 ```
+
+### 用户登录
+
+1. 在 session create action 里面, 先登录参数校验, 然后 比较密码 `user.authenticated? (user.rb)`
+2. 认证成功以后, 使用 `config/digest_util` 中的方法随机生成一个32位 base64 编码的数据
+   - `DigestUtil.random_base64_32 => "DTcXIfPBpvibPlLDfh-VAdXXckp6ytSIdJckivus8s8"`
+   - `DigestUtil.encrypt(DigestUtil.random_base64_32) => "$2a$12$.m1BGsMzibgMCvVkqDJ84.XQeuYiZDCDG9UwklGSjAa/dMncZQTFG"`
+3. 更新 session_digest 属性, 成功返回 user: id, session: 加密数据
+---
+4. 用户身份认证, 判断是否是当前用户登录
+   - 在 `Header 头里` user 属性使用 id, authorization 使用: session加密数据, 传进来
