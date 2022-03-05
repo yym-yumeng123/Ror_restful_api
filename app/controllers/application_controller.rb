@@ -51,6 +51,11 @@ class ApplicationController < ActionController::API
     
     @current_user
   end
+
+  def unauthenticated!
+    return render_json_and_code({ 'status': ERROR_UNAUTHORIZED, 'message': ERROR_UNAUTHORIZED_MESSAGE}, 401)
+  end
+  
   
   
   # 创建成功响应

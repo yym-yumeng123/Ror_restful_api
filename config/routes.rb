@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     # 查看版本路由
     get 'monitors/version'
     get 'monitors/canLogin'
-    get 'monitors/canLogin'
+    get 'monitors/needLogin'
     get 'monitors/canLogin'
     resources :users, except: [:destroy]
     resources :sessions, only: [:create, :destroy]
