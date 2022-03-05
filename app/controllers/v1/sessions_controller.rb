@@ -1,4 +1,6 @@
 class V1::SessionsController < ApplicationController
+  before_action :authenticate_user!, only: [:destroy]
+  
   def create
     # 登录参数校验
     # 登录顺序为邮箱，手机号，qq，微信
@@ -58,5 +60,6 @@ class V1::SessionsController < ApplicationController
   end
 
   def destroy
+    current_user.update_attribute(:session_digest, "")
   end
 end
