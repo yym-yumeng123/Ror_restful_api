@@ -52,8 +52,15 @@ class ApplicationController < ActionController::API
     @current_user
   end
 
+  # 该action需要认证
+  # 会中断请求，如果没登录
+  # 会直接返回登录提示
+  def authenticate_user!
+    unauthenticated! if !current_user
+  end
+
   def unauthenticated!
-    return render_json_and_code({ 'status': ERROR_UNAUTHORIZED, 'message': ERROR_UNAUTHORIZED_MESSAGE}, 401)
+    render_json_and_code({ 'status': ERROR_UNAUTHORIZED, 'message': ERROR_UNAUTHORIZED_MESSAGE}, 401)
   end
   
   

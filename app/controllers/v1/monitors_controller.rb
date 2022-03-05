@@ -1,4 +1,6 @@
 class V1::MonitorsController < ApplicationController
+  before_action :authenticate_user!, only: [:needLogin]
+
   def version
     version = {
       "name" => ENV['VERSION_NAME'],
@@ -26,12 +28,6 @@ class V1::MonitorsController < ApplicationController
 
   # 接口测试要登录
   def needLogin
-    if !current_user
-      # 用户信息为空
-      # 直接返回未认证
-      unauthenticated!
-      return
-    end
     # 先显示名称
     # 因为名称对用户来说更友好
     # 这里所说的用户，也可代指除程序员
