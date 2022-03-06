@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get 'monitors/canLogin'
     resources :users, except: [:destroy]
     resources :sessions, only: [:create, :destroy]
+    resources :ads, except: [:show]
   end
 
   namespace :v2 do
