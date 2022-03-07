@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :users, except: [:destroy]
     resources :sessions, only: [:create, :destroy]
     resources :ads, except: [:show]
+    resources :sheets
   end
 
   namespace :v2 do
