@@ -1,5 +1,8 @@
 class User < ApplicationRecord
+  # 一个用户有多个广告
   has_many :ads
+  # 可以有多个歌单
+  has_many :sheets
 
   # 添加一个密码属性 只是用来保存用户传递进来的密码, 不会存储到数据库
   attr_accessor :password

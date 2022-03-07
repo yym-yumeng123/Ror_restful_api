@@ -67,7 +67,7 @@ class ApplicationController < ActionController::API
   
   # 创建成功响应
   def render_save_success data
-    render json: data, status: :created
+    render json: {data: data}, status: :created
   end
 
   def render_error code, message
