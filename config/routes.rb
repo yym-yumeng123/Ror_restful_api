@@ -5,10 +5,16 @@ Rails.application.routes.draw do
     get 'monitors/canLogin'
     get 'monitors/needLogin'
     get 'monitors/canLogin'
+    # 注册
     resources :users, except: [:destroy]
+    # 登录
     resources :sessions, only: [:create, :destroy]
+    # 广告
     resources :ads, except: [:show]
+    # 歌单
     resources :sheets
+    # 歌曲
+    resources :songs
   end
 
   namespace :v2 do
