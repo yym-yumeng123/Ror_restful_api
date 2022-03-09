@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_07_152004) do
+ActiveRecord::Schema.define(version: 2022_03_09_150639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,18 @@ ActiveRecord::Schema.define(version: 2022_03_07_152004) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_ads_on_user_id"
+  end
+
+  create_table "relations", force: :cascade do |t|
+    t.bigint "song_id", null: false
+    t.bigint "sheet_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sheet_id"], name: "index_relations_on_sheet_id"
+    t.index ["song_id", "sheet_id", "user_id"], name: "index_relations_on_song_id_and_sheet_id_and_user_id", unique: true
+    t.index ["song_id"], name: "index_relations_on_song_id"
+    t.index ["user_id"], name: "index_relations_on_user_id"
   end
 
   create_table "sheets", force: :cascade do |t|
@@ -82,6 +94,9 @@ ActiveRecord::Schema.define(version: 2022_03_07_152004) do
   end
 
   add_foreign_key "ads", "users"
+  add_foreign_key "relations", "sheets"
+  add_foreign_key "relations", "songs"
+  add_foreign_key "relations", "users"
   add_foreign_key "sheets", "users"
   add_foreign_key "songs", "users"
 end
