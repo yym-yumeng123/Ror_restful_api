@@ -2,6 +2,12 @@ class V1::SongsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
   before_action :set_data, only: [:update, :destroy]
 
+  def index
+    @songs = Song.all
+    render  json: @songs
+  end
+
+
 
   def show
     @song = Song.find(params[:id])

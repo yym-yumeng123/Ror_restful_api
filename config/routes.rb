@@ -12,7 +12,10 @@ Rails.application.routes.draw do
     # 广告
     resources :ads, except: [:show]
     # 歌单
-    resources :sheets
+    resources :sheets do
+      # 像歌单中 添加 删除歌曲
+      resources :relations, only: [:create, :destroy]
+    end
     # 歌曲
     resources :songs
   end
