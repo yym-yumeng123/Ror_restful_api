@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     end
     # 歌曲
     resources :songs
+
+    # 歌单收藏/取消收藏
+    resources :collections, only: [:create, :destroy]
   end
 
   namespace :v2 do
