@@ -19,6 +19,14 @@ class V1::SheetsController < ApplicationController
 
   def show
     @sheet = Sheet.find(params[:id])
+
+    if current_user && collection = current_user.collection?(params[:id])
+      # 如果登录，就判断是否收藏
+      # 这个判断可以其他位置也要用到
+      # 所以可以定义在user中
+      # 如果收藏了，就赋值到@collection_id
+      @collection_id = true
+    end
   end
 
   def update

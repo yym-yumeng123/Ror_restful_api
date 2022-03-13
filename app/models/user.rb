@@ -57,5 +57,11 @@ class User < ApplicationRecord
     # 使用传递进来的密码和加密的密码比较
     BCrypt::Password.new(digest).is_password?(value)
   end
+
+  # 是否收藏了该歌单
+  def collection? sheet_id
+    collections.find_by_sheet_id(sheet_id)
+  end
+  
   
 end
