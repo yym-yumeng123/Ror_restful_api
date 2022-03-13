@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_09_150639) do
+ActiveRecord::Schema.define(version: 2022_03_13_122400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,16 @@ ActiveRecord::Schema.define(version: 2022_03_09_150639) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_ads_on_user_id"
+  end
+
+  create_table "collections", force: :cascade do |t|
+    t.bigint "sheet_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sheet_id", "user_id"], name: "index_collections_on_sheet_id_and_user_id", unique: true
+    t.index ["sheet_id"], name: "index_collections_on_sheet_id"
+    t.index ["user_id"], name: "index_collections_on_user_id"
   end
 
   create_table "relations", force: :cascade do |t|
@@ -94,6 +104,8 @@ ActiveRecord::Schema.define(version: 2022_03_09_150639) do
   end
 
   add_foreign_key "ads", "users"
+  add_foreign_key "collections", "sheets"
+  add_foreign_key "collections", "users"
   add_foreign_key "relations", "sheets"
   add_foreign_key "relations", "songs"
   add_foreign_key "relations", "users"
