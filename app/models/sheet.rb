@@ -17,4 +17,7 @@ class Sheet < ApplicationRecord
   validates :title, presence: true
   
   default_scope -> { order(created_at: :desc)}
+
+  # 表单传递
+  # accepts_nested_attributes_for :tag_sheets
 end

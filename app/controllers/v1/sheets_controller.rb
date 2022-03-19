@@ -7,9 +7,11 @@ class V1::SheetsController < ApplicationController
     @sheets = Sheet.all
   end
 
+  # json 实现 带标签
   def create
     @sheet = current_user.sheets.build(sheet_params)
     if @sheet.save
+      save_tags(params[:tags], @sheet.id)
       render_save_success @sheet
     else
       render_default_error
@@ -31,6 +33,7 @@ class V1::SheetsController < ApplicationController
 
   def update
     if @sheet.update sheet_params
+      save_tags(params[:tags],@sheet.id)
       render_save_success @sheet
     else
       render_default_error
@@ -48,6 +51,25 @@ class V1::SheetsController < ApplicationController
 
     def set_sheet
       @sheet = current_user.sheets.find params[:id]
+    end
+
+    # 保存标签
+    def save_tags(tags,sheet_id)
+      # 歌单保存成功
+    
+      # 删除该歌单所有标签
+      TagSheet.where("sheet_id = ? and user_id = ?", sheet_id, current_user.id).delete_all
+    
+      # 如果有标签
+      if tags && tags.count > 0
+        # 就要手动保存
+        # 单个保存，没有批量保存快
+        # 这里应该使用数据库事务
+        tags.each do |tag|
+          tag_sheet = TagSheet.new(id: tag["id"], tag_id: tag["tag_id"], sheet_id: sheet_id, user_id: current_user.id)
+          tag_sheet.save
+        end
+      end
     end
     
     
