@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_13_122400) do
+ActiveRecord::Schema.define(version: 2022_03_19_102310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,17 @@ ActiveRecord::Schema.define(version: 2022_03_13_122400) do
     t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "title", null: false
+    t.bigint "parent_id"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["parent_id"], name: "index_tags_on_parent_id"
+    t.index ["title", "user_id"], name: "index_tags_on_title_and_user_id", unique: true
+    t.index ["user_id"], name: "index_tags_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "nickname", null: false
     t.string "avatar"
@@ -111,4 +122,5 @@ ActiveRecord::Schema.define(version: 2022_03_13_122400) do
   add_foreign_key "relations", "users"
   add_foreign_key "sheets", "users"
   add_foreign_key "songs", "users"
+  add_foreign_key "tags", "users"
 end

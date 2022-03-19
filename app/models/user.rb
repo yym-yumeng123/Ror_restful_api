@@ -13,6 +13,8 @@ class User < ApplicationRecord
   # 用户可以创建多个歌单，所以sheets已经用了，收藏的歌单就取名为collection_sheets
   has_many :collection_sheets, through: :collections, source: "sheet"
 
+  has_many :tags
+
   # 添加一个密码属性 只是用来保存用户传递进来的密码, 不会存储到数据库
   attr_accessor :password
 
