@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_19_102310) do
+ActiveRecord::Schema.define(version: 2022_03_19_113846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,18 @@ ActiveRecord::Schema.define(version: 2022_03_19_102310) do
     t.index ["user_id"], name: "index_songs_on_user_id"
   end
 
+  create_table "tag_sheets", force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "sheet_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["sheet_id"], name: "index_tag_sheets_on_sheet_id"
+    t.index ["tag_id"], name: "index_tag_sheets_on_tag_id"
+    t.index ["user_id", "tag_id", "sheet_id"], name: "index_tag_sheets_on_user_id_and_tag_id_and_sheet_id", unique: true
+    t.index ["user_id"], name: "index_tag_sheets_on_user_id"
+  end
+
   create_table "tags", force: :cascade do |t|
     t.string "title", null: false
     t.bigint "parent_id"
@@ -122,5 +134,8 @@ ActiveRecord::Schema.define(version: 2022_03_19_102310) do
   add_foreign_key "relations", "users"
   add_foreign_key "sheets", "users"
   add_foreign_key "songs", "users"
+  add_foreign_key "tag_sheets", "sheets"
+  add_foreign_key "tag_sheets", "tags"
+  add_foreign_key "tag_sheets", "users"
   add_foreign_key "tags", "users"
 end

@@ -10,6 +10,9 @@ class Sheet < ApplicationRecord
   has_many :collections
   has_many :users, through: :collections
 
+  # 歌单下有多个标签
+  has_many :tag_sheets
+  has_many :tags, through: :tag_sheets
 
   validates :title, presence: true
   

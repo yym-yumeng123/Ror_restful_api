@@ -8,6 +8,11 @@ class Tag < ApplicationRecord
   # optional: true：表示parent_id为可选
   belongs_to :parent, class_name: "Tag", optional: true
 
+  # 标签下有多个歌单
+  # 通过一下两行代码实现
+  has_many :tag_sheets
+  has_many :sheets, through: :tag_sheets
+
   validates :title, presence: true, length: {maximum: 15}
 
   def self.first_level
