@@ -9,4 +9,12 @@ class Tag < ApplicationRecord
   belongs_to :parent, class_name: "Tag", optional: true
 
   validates :title, presence: true, length: {maximum: 15}
+
+  def self.first_level
+    Tag.where('parent_id IS NULL')
+  end
+
+  def self.next_level parent_id
+    Tag.where('parent_id = ?', parent_id)
+  end
 end

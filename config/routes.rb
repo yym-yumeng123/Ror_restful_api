@@ -21,6 +21,9 @@ Rails.application.routes.draw do
 
     # 歌单收藏/取消收藏
     resources :collections, only: [:create, :destroy]
+
+    # 标签
+    resources :tags, only: [:index]
   end
 
   namespace :v2 do
